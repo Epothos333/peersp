@@ -19,6 +19,7 @@ export function PictureView({ items, height, width, loadedCallback }) {
       opacity: allItemsLoaded ? 1 : 0,
     }}>
       {items.map(({download_url, id}) => {
+        // Could use react-native-fast-image for optimization https://github.com/DylanVann/react-native-fast-image
         return <Image key={id} source={{ uri: download_url }} style={{ flex: 1 }} onLoadEnd={() => setLoaded(prev => prev + 1)} />;
       })}
     </View>
