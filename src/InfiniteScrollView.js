@@ -8,6 +8,7 @@ import { PictureView } from './PictureView';
 export function InfiniteScrollView() {
   const [endIndex, setEndIndex] = useState(1);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const [hasScrolled, setHasScrolled] = useState(false);
 
   const dispatch = useDispatch();
   const pictures = useSelector(state => state.pics.pictures);
@@ -23,7 +24,7 @@ export function InfiniteScrollView() {
   };
 
   const handleOnEndReached = () => {
-    if (pictures.length + 1 === endIndex || loading) { return; }
+    if (pictures.length + 1 === endIndex || loading || !hasScrolled) { return; }
     dispatch(setLoading(true));
     setEndIndex(prevIndex => prevIndex + 1);
   };
@@ -33,6 +34,9 @@ export function InfiniteScrollView() {
       {pictures.length > 0 &&
         <FlatList
           scrollEnabled={true}
+          onScroll={() => {
+            setHasScrolled(true);
+          }}
           data={pictures.slice(0, endIndex)}
           onEndReached={handleOnEndReached}
           keyExtractor={item => item[0].id}
