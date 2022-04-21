@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import Axios from 'axios';
 
-
 const initialState = {
   pictures: [],
   loading: true,

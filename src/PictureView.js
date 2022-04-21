@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Image, View } from 'react-native';
+import { number, string, arrayOf, shape, func } from 'prop-types';
 
 export function PictureView({ items, height, width, loadedCallback }) {
   const [loaded, setLoaded] = useState(0);
@@ -24,3 +25,12 @@ export function PictureView({ items, height, width, loadedCallback }) {
   );
 }
 
+PictureView.propTypes = {
+  items: arrayOf(shape({
+    download_url: string,
+    id: string,
+  })),
+  height: number,
+  width: number,
+  loadedCallback: func
+}
